@@ -146,7 +146,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        .mobile-gallery figure { margin: 0; position: relative; }
+        .mobile-gallery figure { margin: 0; }
 
         .mobile-gallery img {
             width: 100%;
@@ -186,27 +186,6 @@
             .game-content { grid-template-columns: 1fr; }
             .game-media img { height: auto; aspect-ratio: 16 / 9; }
         }
-
-        /* Help button + description (phones only) */
-        .info-btn { display: none; }
-        .desc { display: none; }
-        @media (max-width: 640px) {
-            .info-btn {
-                position: absolute; top: 8px; right: 8px;
-                width: 26px; height: 26px; border-radius: 50%;
-                background: #e5e7eb; border: 1px solid #000; color: #000;
-                font-weight: 800; font-size: 14px; line-height: 1;
-                display: flex; align-items: center; justify-content: center;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.25); user-select: none;
-            }
-            .mobile-gallery figure.show-desc .desc { display: block; }
-            .desc {
-                position: absolute; left: 8px; right: 8px; bottom: 8px;
-                background: rgba(255,255,255,0.98); color: #1f2937;
-                border: 1px solid #000; border-radius: 8px; padding: 10px;
-                font-size: 13px; box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-            }
-        }
     </style>
 </head>
 <body>
@@ -217,72 +196,54 @@
         <a href="https://xavier371.github.io/FindTheBasis/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="find-the-basis.jpg" alt="Find the Basis game thumbnail">
-                <button class="info-btn" aria-label="Find the Basis info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Vectors i and j form a unit square. Drag i' and j' to transform it and land the blue point on red.</div>
                 <figcaption>Find the Basis</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/GraphTheMatch/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="gtm.jpg" alt="Graph the Match game thumbnail">
-                <button class="info-btn" aria-label="Graph the Match info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Pick edges to maximize a perfect matching between students and universities.</div>
                 <figcaption>Graph the Match</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/FM-Calculator/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="FM.jpg" alt="Financial Calculator app thumbnail">
-                <button class="info-btn" aria-label="FM Calculator info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Analyze loans, annuities, and bonds with live time‑value calculations.</div>
                 <figcaption>FM Calculator</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Laser-Jump/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="LJ.jpg" alt="Laser Jump game thumbnail">
-                <button class="info-btn" aria-label="Laser Jump info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Collect coins and dodge lasers. Space to jump on desktop; tap + drag on mobile.</div>
                 <figcaption>Laser Jump</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Chase-the-Point/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="CTP.jpg" alt="Catch the Point game thumbnail">
-                <button class="info-btn" aria-label="Catch the Point info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Corner the red point before edges vanish. Swap to defense or 2‑player mode.</div>
                 <figcaption>Catch the Point</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/3D-connect4/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="3d.jpg" alt="3D Connect 4 game thumbnail">
-                <button class="info-btn" aria-label="3D Connect 4 info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Connect four in 3D space. Think across layers to align your pieces.</div>
                 <figcaption>3D Connect 4</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/3D-tic-tac-toe/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="ttt.jpg" alt="3D Tic Tac Toe game thumbnail">
-                <button class="info-btn" aria-label="3D Tic Tac Toe info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Classic Tic Tac Toe, now in 3D. Win lines can cut through layers.</div>
                 <figcaption>3D Tic Tac Toe</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/3D-snake/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="snk.jpg" alt="3D Snake game thumbnail">
-                <button class="info-btn" aria-label="3D Snake info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Guide the snake in three dimensions. Plan ahead to avoid trapping yourself.</div>
                 <figcaption>3D Snake</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Triangle-Chess/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="tc.jpg" alt="Triangle Chess game thumbnail">
-                <button class="info-btn" aria-label="Triangle Chess info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
-                <div class="desc">Promote a triangle across the board while blocking your opponent’s route.</div>
                 <figcaption>Triangle Chess</figcaption>
             </figure>
         </a>
