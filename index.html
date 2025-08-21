@@ -5,26 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xavier Math Games</title>
     <meta name="description" content="Play interactive math games including Catch the Point, Triangle Push, Find the Basis, Graph the Match, and 3D classics. Fun mathematical challenges for all levels.">
-    <meta property="og:title" content="Xavier Math Games">
-    <meta property="og:description" content="Play interactive math games including Catch the Point, Triangle Push, Find the Basis, Graph the Match, and 3D classics. Fun mathematical challenges for all levels.">
     <meta property="og:type" content="website">
-    <link rel="canonical" href="https://xaviermathgames.com/">
     <style>
         :root {
             --page-max: 1100px;
             --card-bg: #ffffff;
-            --page-bg: #f5f5f5;
-            --text: #333333;
-            --accent: #2c5282;
-            --button: #4CAF50;
-            --button-hover: #45a049;
+            --page-bg: #d9dde3; /* lighter grey */
+            --text: #1f2937; /* dark slate */
+            --accent: #1f3a8a; /* dark blue */
+            --button: #1f3a8a;
+            --button-hover: #172a63;
             --radius: 8px;
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Times New Roman", Times, serif;
             max-width: var(--page-max);
             margin: 0 auto;
             padding: 20px;
@@ -35,9 +32,10 @@
 
         h1 {
             text-align: center;
-            color: var(--text);
+            color: #000000; /* black */
             margin-bottom: 32px;
             letter-spacing: 0.2px;
+            text-shadow: none;
         }
 
         h2 {
@@ -52,12 +50,15 @@
             background-color: var(--button);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 6px;
-            transition: background-color 0.2s ease;
+            border-radius: 0; /* perfect rectangle */
+            border: 1px solid #162a63; /* crisp edge */
+            box-shadow: 0 2px 0 #0f1f4a; /* subtle depth */
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.02s ease;
             font-weight: 600;
         }
 
-        a.game-link:hover { background-color: var(--button-hover); }
+        a.game-link:hover { background-color: var(--button-hover); box-shadow: 0 3px 0 #0f1f4a; }
+        a.game-link:active { transform: translateY(1px); box-shadow: 0 1px 0 #0f1f4a; }
 
         /* Desktop/tablet list layout */
         .games-list { display: grid; gap: 36px; }
@@ -79,9 +80,9 @@
         /* Make only the text area look like a card */
         .game-text {
             background: var(--card-bg);
-            border: 1px solid #e6e6e6;
-            border-radius: var(--radius);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            border: 1px solid #d7dbe3; /* softer grey */
+            border-radius: 0; /* perfect rectangle */
+            box-shadow: 0 6px 16px rgba(15, 27, 64, 0.08);
             padding: 20px;
         }
 
@@ -109,7 +110,7 @@
             border: none;
             display: block;
             background: transparent;
-            box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 24px rgba(17, 34, 76, 0.10);
         }
 
         /* Hide captions under right-side desktop tiles (keep mobile gallery captions) */
@@ -117,7 +118,7 @@
 
         .game-media figcaption {
             font-size: 12px;
-            color: #666666;
+            color: #5b6476;
             margin-top: 6px;
             text-align: center;
         }
@@ -134,6 +135,8 @@
         .mobile-gallery {
             display: none;
             margin-bottom: 24px;
+            background-color: var(--page-bg); /* match phones bg */
+            padding: 0 0 1px 0;
         }
 
         .mobile-gallery a {
@@ -143,7 +146,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        .mobile-gallery figure { margin: 0; }
+        .mobile-gallery figure { margin: 0; position: relative; }
 
         .mobile-gallery img {
             width: 100%;
@@ -152,13 +155,13 @@
             border-radius: 10px;
             border: none;
             display: block;
-            background: #f8f8f8;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+            background: #eef1f6;
+            box-shadow: 0 8px 18px rgba(17, 34, 76, 0.08);
         }
 
         .mobile-gallery figcaption {
             font-size: 12px;
-            color: #666666;
+            color: #5b6476;
             margin-top: 6px;
             text-align: center;
         }
@@ -183,26 +186,28 @@
             .game-content { grid-template-columns: 1fr; }
             .game-media img { height: auto; aspect-ratio: 16 / 9; }
         }
+
+        /* Help button + description (phones only) */
+        .info-btn { display: none; }
+        .desc { display: none; }
+        @media (max-width: 640px) {
+            .info-btn {
+                position: absolute; top: 8px; right: 8px;
+                width: 26px; height: 26px; border-radius: 50%;
+                background: #e5e7eb; border: 1px solid #000; color: #000;
+                font-weight: 800; font-size: 14px; line-height: 1;
+                display: flex; align-items: center; justify-content: center;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.25); user-select: none;
+            }
+            .mobile-gallery figure.show-desc .desc { display: block; }
+            .desc {
+                position: absolute; left: 8px; right: 8px; bottom: 8px;
+                background: rgba(255,255,255,0.98); color: #1f2937;
+                border: 1px solid #000; border-radius: 8px; padding: 10px;
+                font-size: 13px; box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            }
+        }
     </style>
-    <!--
-        Place your 7 images in /images with these suggested filenames:
-        - find-the-basis.jpg
-        - graph-the-match.jpg
-        - fm-calculator.jpg
-        - laser-jump.jpg
-        - catch-the-point.jpg
-        - classics-3d.jpg
-        - triangle-chess.jpg
-    -->
-    <link rel="preload" as="image" href="find-the-basis.jpg">
-    <link rel="preload" as="image" href="gtm.jpg">
-    <link rel="preload" as="image" href="FM.jpg">
-    <link rel="preload" as="image" href="LJ.jpg">
-    <link rel="preload" as="image" href="CTP.jpg">
-    <link rel="preload" as="image" href="3d.jpg">
-    <link rel="preload" as="image" href="tc.jpg">
-    <link rel="preload" as="image" href="ttt.jpg">
-    <link rel="preload" as="image" href="snk.jpg">
 </head>
 <body>
     <h1>Xavier Math Games</h1>
@@ -212,54 +217,72 @@
         <a href="https://xavier371.github.io/FindTheBasis/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="find-the-basis.jpg" alt="Find the Basis game thumbnail">
+                <button class="info-btn" aria-label="Find the Basis info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Vectors i and j form a unit square. Drag i' and j' to transform it and land the blue point on red.</div>
                 <figcaption>Find the Basis</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/GraphTheMatch/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="gtm.jpg" alt="Graph the Match game thumbnail">
+                <button class="info-btn" aria-label="Graph the Match info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Pick edges to maximize a perfect matching between students and universities.</div>
                 <figcaption>Graph the Match</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/FM-Calculator/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img data-src-base="fm" src="FM.jpg" alt="Financial Calculator app thumbnail">
+                <img src="FM.jpg" alt="Financial Calculator app thumbnail">
+                <button class="info-btn" aria-label="FM Calculator info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Analyze loans, annuities, and bonds with live time‑value calculations.</div>
                 <figcaption>FM Calculator</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Laser-Jump/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img data-src-base="lj" src="LJ.jpg" alt="Laser Jump game thumbnail">
+                <img src="LJ.jpg" alt="Laser Jump game thumbnail">
+                <button class="info-btn" aria-label="Laser Jump info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Collect coins and dodge lasers. Space to jump on desktop; tap + drag on mobile.</div>
                 <figcaption>Laser Jump</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Chase-the-Point/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img data-src-base="ctp" src="CTP.jpg" alt="Catch the Point game thumbnail">
+                <img src="CTP.jpg" alt="Catch the Point game thumbnail">
+                <button class="info-btn" aria-label="Catch the Point info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Corner the red point before edges vanish. Swap to defense or 2‑player mode.</div>
                 <figcaption>Catch the Point</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/3D-connect4/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="3d.jpg" alt="3D Connect 4 game thumbnail">
+                <button class="info-btn" aria-label="3D Connect 4 info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Connect four in 3D space. Think across layers to align your pieces.</div>
                 <figcaption>3D Connect 4</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/3D-tic-tac-toe/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="ttt.jpg" alt="3D Tic Tac Toe game thumbnail">
+                <button class="info-btn" aria-label="3D Tic Tac Toe info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Classic Tic Tac Toe, now in 3D. Win lines can cut through layers.</div>
                 <figcaption>3D Tic Tac Toe</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/3D-snake/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="snk.jpg" alt="3D Snake game thumbnail">
+                <button class="info-btn" aria-label="3D Snake info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Guide the snake in three dimensions. Plan ahead to avoid trapping yourself.</div>
                 <figcaption>3D Snake</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Triangle-Chess/" target="_blank" rel="noopener noreferrer">
             <figure>
                 <img src="tc.jpg" alt="Triangle Chess game thumbnail">
+                <button class="info-btn" aria-label="Triangle Chess info" onclick="this.parentElement.classList.toggle('show-desc'); event.preventDefault();">?</button>
+                <div class="desc">Promote a triangle across the board while blocking your opponent’s route.</div>
                 <figcaption>Triangle Chess</figcaption>
             </figure>
         </a>
@@ -321,7 +344,7 @@
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img data-src-base="fm" src="FM.jpg" alt="Financial Calculator app thumbnail">
+                        <img src="FM.jpg" alt="Financial Calculator app thumbnail">
                         <figcaption>FM Calculator</figcaption>
                     </figure>
                 </div>
@@ -341,7 +364,7 @@
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img data-src-base="lj" src="LJ.jpg" alt="Laser Jump game thumbnail">
+                        <img src="LJ.jpg" alt="Laser Jump game thumbnail">
                         <figcaption>Laser Jump</figcaption>
                     </figure>
                 </div>
@@ -362,7 +385,7 @@
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img data-src-base="ctp" src="CTP.jpg" alt="Catch the Point game thumbnail">
+                        <img src="CTP.jpg" alt="Catch the Point game thumbnail">
                         <figcaption>Catch the Point</figcaption>
                     </figure>
                 </div>
