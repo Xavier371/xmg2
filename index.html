@@ -32,9 +32,7 @@
         }
 
         @media (max-width: 640px) {
-            body {
-                padding: 16px 12px;
-            }
+            body { padding: 16px 12px; }
         }
 
         h1 {
@@ -46,10 +44,7 @@
         }
 
         @media (max-width: 640px) {
-            h1 {
-                margin-bottom: 24px;
-                font-size: 1.8rem;
-            }
+            h1 { margin-bottom: 24px; font-size: 1.8rem; }
         }
 
         h2 {
@@ -70,7 +65,6 @@
             transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.02s ease;
             font-weight: 600;
         }
-
         a.game-link:hover { background-color: var(--button-hover); box-shadow: 0 3px 0 #0f1f4a; }
         a.game-link:active { transform: translateY(1px); box-shadow: 0 1px 0 #0f1f4a; }
 
@@ -104,24 +98,68 @@
 
         .button-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
 
-        .mobile-gallery { display: none; margin-bottom: 24px; background-color: var(--page-bg); padding: 0 0 1px 0; }
-        .mobile-gallery a { color: inherit; text-decoration: none; display: block; -webkit-tap-highlight-color: transparent; }
-        .mobile-gallery figure { margin: 0; }
-        .mobile-gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 0; border: none; display: block; background: transparent; box-shadow: none; }
-        .mobile-gallery a:nth-child(1) img,
-        .mobile-gallery a:nth-child(2) img,
-        .mobile-gallery a:nth-child(3) img,
-        .mobile-gallery a:nth-child(4) img { object-fit: contain; }
-        .mobile-gallery a:nth-child(6) img { object-position: 60% center; }
-        .mobile-gallery figcaption { font-size: 12px; color: #374151; margin-top: 6px; text-align: center; }
+        /* ---------- MOBILE GALLERY (PHONES) ---------- */
+        .mobile-gallery {
+            display: none;
+            margin-bottom: 24px;
+            background-color: var(--page-bg);
+            padding: 0;
+        }
+        /* Base link/tile: take full grid cell height for even spacing */
+        .mobile-gallery a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            -webkit-tap-highlight-color: transparent;
+            height: 100%;
+        }
+        /* Make each tile a vertical stack so caption is directly under the image */
+        .mobile-gallery figure {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        /* Uniform square thumbnails so rows align perfectly */
+        .mobile-gallery img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;      /* keeps uniform height; crops edges if needed */
+            border-radius: 0;
+            border: none;
+            display: block;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(17, 34, 76, 0.10);
+        }
+        /* Caption sits tight under image */
+        .mobile-gallery figcaption {
+            font-size: 12px;
+            color: #374151;
+            margin-top: 8px;
+            text-align: center;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        /* Remove previous per-item overrides that caused uneven heights */
+        /* (Intentionally blank: no nth-child aspect-ratio rules) */
 
         @media (max-width: 980px) {
             .game-content { grid-template-columns: 1fr 320px; }
             .game-media img { height: auto; }
         }
+
         @media (max-width: 640px) {
-            .mobile-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+            /* Show the uniform mobile grid; hide desktop list */
+            .mobile-gallery {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                align-items: stretch;   /* ensures anchors fill rows evenly */
+            }
             .games-list { display: none; }
+
+            /* Keep desktop blocks single-column if ever shown on small screens */
             .game-content { grid-template-columns: 1fr; }
             .game-media img { height: auto; aspect-ratio: 16 / 9; }
         }
@@ -130,7 +168,7 @@
 <body>
     <h1>Xavier Math Games</h1>
 
-    <!-- Phone gallery reordered: CTP and LJ first row; Slope Field last tile -->
+    <!-- Phone gallery -->
     <section class="mobile-gallery" aria-label="Games quick gallery">
         <a href="https://xavier371.github.io/Chase-the-Point/" target="_blank" rel="noopener noreferrer">
             <figure>
@@ -194,7 +232,7 @@
         </a>
     </section>
 
-    <!-- Desktop list with Slope Field Game under FM Calculator -->
+    <!-- Desktop list -->
     <section class="games-list" aria-label="Games list">
         <article class="game-item">
             <div class="game-content">
@@ -364,4 +402,3 @@
 
 </body>
 </html>
-
