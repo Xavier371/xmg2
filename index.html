@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -532,12 +533,21 @@
                 v.play().catch(function () {});
             });
 
-            // iOS unlock: on first touch anywhere, play all videos
-            document.addEventListener('touchstart', function () {
-                videos.forEach(function (v) {
-                    if (v.paused) v.play().catch(function () {});
+            // First click on a game video link: play all videos instead of navigating
+            var unlocked = false;
+            document.querySelectorAll('.game-media a').forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    if (!unlocked) {
+                        var anyPaused = Array.from(videos).some(function (v) { return v.paused; });
+                        if (anyPaused) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            videos.forEach(function (v) { v.play().catch(function () {}); });
+                            unlocked = true;
+                        }
+                    }
                 });
-            }, { once: true, passive: true });
+            });
 
             // Pause when off-screen, resume when back in view
             if ('IntersectionObserver' in window) {
@@ -562,7 +572,7 @@
                 var mediaPanel = card.querySelector('.game-media');
                 var startX, startTextW, cardW, dragging;
 
-                card.addEventListener('touchstart', function (e) {
+                textPanel.addEventListener('touchstart', function (e) {
                     startX      = e.touches[0].clientX;
                     cardW       = card.offsetWidth;
                     startTextW  = textPanel.offsetWidth;
@@ -571,7 +581,7 @@
                     mediaPanel.style.transition = 'none';
                 }, { passive: true });
 
-                card.addEventListener('touchmove', function (e) {
+                textPanel.addEventListener('touchmove', function (e) {
                     if (!dragging) return;
                     var dx      = e.touches[0].clientX - startX;
                     var newW    = Math.min(Math.max(startTextW + dx, cardW * 0.2), cardW * 0.8);
