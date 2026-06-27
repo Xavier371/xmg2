@@ -151,7 +151,7 @@
             .game-text {
                 flex: 0 0 38%;
                 padding: 10px 10px 10px 10px;
-                transition: flex-basis 0.35s ease;
+                transition: flex-basis 0.25s ease;
                 overflow: hidden;
                 position: relative;
             }
@@ -175,7 +175,7 @@
 
             .game-media {
                 flex: 0 0 62%;
-                transition: flex-basis 0.35s ease;
+                transition: flex-basis 0.25s ease;
                 align-self: center;
                 padding: 6px;
             }
@@ -555,26 +555,73 @@
         trackVisit();
         // ─────────────────────────────────────────────────────────────────────
 
-        // ── Mobile swipe to expand description / video ────────────────────────
+        // ── Force autoplay on all videos (mobile browsers require explicit play) ─
         (function () {
-            var startX, startY;
+            var videos = document.querySelectorAll('video');
+            videos.forEach(function (v) {
+                v.setAttribute('playsinline', '');
+                v.setAttribute('webkit-playsinline', '');
+                v.muted = true;
+                v.play().catch(function () {});
+            });
 
+            if ('IntersectionObserver' in window) {
+                var obs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.play().catch(function () {});
+                        } else {
+                            entry.target.pause();
+                        }
+                    });
+                }, { threshold: 0.25 });
+                videos.forEach(function (v) { obs.observe(v); });
+            }
+        })();
+        // ─────────────────────────────────────────────────────────────────────
+
+        // ── Mobile drag to resize description / video ─────────────────────────
+        (function () {
             document.querySelectorAll('.game-content').forEach(function (card) {
+                var textPanel  = card.querySelector('.game-text');
+                var mediaPanel = card.querySelector('.game-media');
+                var startX, startTextW, cardW, dragging;
+
                 card.addEventListener('touchstart', function (e) {
-                    startX = e.touches[0].clientX;
-                    startY = e.touches[0].clientY;
+                    startX      = e.touches[0].clientX;
+                    cardW       = card.offsetWidth;
+                    startTextW  = textPanel.offsetWidth;
+                    dragging    = true;
+                    textPanel.style.transition  = 'none';
+                    mediaPanel.style.transition = 'none';
                 }, { passive: true });
 
-                card.addEventListener('touchend', function (e) {
-                    var dx = e.changedTouches[0].clientX - startX;
-                    var dy = e.changedTouches[0].clientY - startY;
-                    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-                    if (dx > 0) {
-                        card.classList.add('expanded');
-                    } else {
-                        card.classList.remove('expanded');
-                    }
+                card.addEventListener('touchmove', function (e) {
+                    if (!dragging) return;
+                    var dx      = e.touches[0].clientX - startX;
+                    var newW    = Math.min(Math.max(startTextW + dx, cardW * 0.2), cardW * 0.8);
+                    var textPct = (newW / cardW * 100).toFixed(1);
+                    textPanel.style.flexBasis  = textPct + '%';
+                    mediaPanel.style.flexBasis = (100 - parseFloat(textPct)).toFixed(1) + '%';
                 }, { passive: true });
+
+                function snapEnd() {
+                    if (!dragging) return;
+                    dragging = false;
+                    textPanel.style.transition  = '';
+                    mediaPanel.style.transition = '';
+                    var textPct = parseFloat(textPanel.style.flexBasis) || 38;
+                    if (textPct > 50) {
+                        textPanel.style.flexBasis  = '72%';
+                        mediaPanel.style.flexBasis = '28%';
+                    } else {
+                        textPanel.style.flexBasis  = '38%';
+                        mediaPanel.style.flexBasis = '62%';
+                    }
+                }
+
+                card.addEventListener('touchend',    snapEnd, { passive: true });
+                card.addEventListener('touchcancel', snapEnd, { passive: true });
             });
         })();
         // ─────────────────────────────────────────────────────────────────────
