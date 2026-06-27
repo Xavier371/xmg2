@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xavier Math Games</title>
-    
+
     <meta name="description" content="Learn the fundamentals of Linear Algebra, Differential Equations, Financial Math, and Graph Theory through interactive games for students and professionals of all ages.">
     <meta property="og:type" content="website">
     <style>
@@ -98,7 +100,8 @@
 
         .game-media { align-self: center; }
         .game-media figure { margin: 0; background: transparent; border: none; border-radius: 0; box-shadow: none; padding: 0; width: 100%; }
-        .game-media img { width: 100%; height: auto; object-fit: contain; border-radius: 10px; border: none; display: block; background: transparent; box-shadow: 0 10px 24px rgba(17, 34, 76, 0.10); }
+        .game-media img,
+        .game-media video { width: 100%; height: auto; object-fit: contain; border-radius: 0; border: none; display: block; background: transparent; box-shadow: 0 10px 24px rgba(17, 34, 76, 0.10); }
         .games-list .game-media figcaption { display: none; }
         .game-media figcaption { font-size: 12px; color: #5b6476; margin-top: 6px; text-align: center; }
 
@@ -107,94 +110,170 @@
         .mobile-gallery { display: none; margin-bottom: 24px; background-color: var(--page-bg); padding: 0 0 1px 0; }
         .mobile-gallery a { color: inherit; text-decoration: none; display: block; -webkit-tap-highlight-color: transparent; }
         .mobile-gallery figure { margin: 0; }
-        .mobile-gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0; border: none; display: block; background: transparent; box-shadow: none; }
+        .mobile-gallery img,
+        .mobile-gallery video { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0; border: none; display: block; background: transparent; box-shadow: none; }
         .mobile-gallery a:nth-child(1) img,
+        .mobile-gallery a:nth-child(1) video,
         .mobile-gallery a:nth-child(2) img,
+        .mobile-gallery a:nth-child(2) video,
         .mobile-gallery a:nth-child(3) img,
-        .mobile-gallery a:nth-child(4) img { aspect-ratio: 1 / 1; object-fit: contain; }
-        .mobile-gallery a:nth-child(6) img { object-position: 60% center; }
+        .mobile-gallery a:nth-child(3) video,
+        .mobile-gallery a:nth-child(4) img,
+        .mobile-gallery a:nth-child(4) video { aspect-ratio: 1 / 1; object-fit: contain; }
+        .mobile-gallery a:nth-child(6) img,
+        .mobile-gallery a:nth-child(6) video { object-position: 60% center; }
         .mobile-gallery figcaption { font-size: 12px; color: #374151; margin-top: 8px; text-align: center; }
 
         @media (max-width: 980px) {
             .game-content { grid-template-columns: 1fr 320px; }
-            .game-media img { height: auto; }
+            .game-media img,
+            .game-media video { height: auto; }
         }
+        .game-media a { display: block; }
+        .game-media a:hover img,
+        .game-media a:hover video { opacity: 0.88; }
+        .game-media img,
+        .game-media video { transition: opacity 0.2s ease; }
+
         @media (max-width: 640px) {
-            .mobile-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-            .games-list { display: none; }
-            .game-content { grid-template-columns: 1fr; }
-            .game-media img { height: auto; aspect-ratio: 16 / 9; }
+            .games-list { gap: 12px; }
+
+            .game-content {
+                display: flex;
+                flex-direction: row;
+                gap: 0;
+                align-items: stretch;
+                overflow: hidden;
+                user-select: none;
+                -webkit-user-select: none;
+            }
+
+            .game-text {
+                flex: 0 0 38%;
+                padding: 10px 10px 10px 10px;
+                transition: flex-basis 0.35s ease;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .game-text::after {
+                content: '';
+                position: absolute;
+                right: 4px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 3px;
+                height: 28px;
+                background: #c8ccd6;
+                border-radius: 2px;
+            }
+
+            .game-text h2 { font-size: 12px; margin-bottom: 4px; }
+            .game-text p { font-size: 10px; line-height: 1.4; margin-bottom: 4px; }
+            a.game-link { font-size: 10px; padding: 4px 7px; margin-top: 4px; }
+            .button-group { gap: 4px; margin-top: 4px; flex-direction: column; }
+
+            .game-media {
+                flex: 0 0 62%;
+                transition: flex-basis 0.35s ease;
+                align-self: center;
+                padding: 6px;
+            }
+
+            .game-media img,
+            .game-media video { height: auto; }
+
+            .game-content.expanded .game-text { flex-basis: 72%; }
+            .game-content.expanded .game-media { flex-basis: 28%; }
         }
     </style>
 </head>
 <body>
     <h1>Xavier Math Games</h1>
 
-    <!-- Phone gallery reordered: CTP and LJ first row; Slope Field last tile -->
     <section class="mobile-gallery" aria-label="Games quick gallery">
-        <a href="https://xavier371.github.io/Chase-the-Point/" target="_blank" rel="noopener noreferrer">
-            <figure>
-                <img src="CTP.jpg" alt="Catch the Point game thumbnail">
-                <figcaption>Catch the Point</figcaption>
-            </figure>
-        </a>
-        <a href="https://xavier371.github.io/Laser-Jump/" target="_blank" rel="noopener noreferrer">
-            <figure>
-                <img src="LJ.jpg" alt="Laser Jump game thumbnail">
-                <figcaption>Laser Jump</figcaption>
-            </figure>
-        </a>
         <a href="https://xavier371.github.io/FindTheBasis/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img src="find-the-basis.jpg" alt="Find the Basis game thumbnail">
+                <video autoplay loop muted playsinline>
+                    <source src="ftb.mp4" type="video/mp4">
+                </video>
                 <figcaption>Find the Basis</figcaption>
             </figure>
         </a>
-        <a href="https://xavier371.github.io/3D-connect4/" target="_blank" rel="noopener noreferrer">
+        <a href="https://xavier371.github.io/Chase-the-Point/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img src="3d.jpg" alt="3D Connect 4 game thumbnail">
-                <figcaption>3D Connect 4</figcaption>
-            </figure>
-        </a>
-        <a href="https://xavier371.github.io/FM-Calculator/" target="_blank" rel="noopener noreferrer">
-            <figure>
-                <img src="FM.jpg" alt="Financial Calculator app thumbnail">
-                <figcaption>Financial Calculator</figcaption>
-            </figure>
-        </a>
-        <a href="https://xavier371.github.io/GraphTheMatch/" target="_blank" rel="noopener noreferrer">
-            <figure>
-                <img src="gtm.jpg" alt="Graph the Match game thumbnail">
-                <figcaption>Graph the Match</figcaption>
-            </figure>
-        </a>
-        <a href="https://xavier371.github.io/3D-tic-tac-toe/" target="_blank" rel="noopener noreferrer">
-            <figure>
-                <img src="ttt.jpg" alt="3D Tic Tac Toe game thumbnail">
-                <figcaption>3D Tic Tac Toe</figcaption>
+                <video autoplay loop muted playsinline>
+                    <source src="ctp.mp4" type="video/mp4">
+                </video>
+                <figcaption>Catch the Point</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Slope-Field-Game/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img src="slp.jpg" alt="Slope Field Game thumbnail">
+                <video autoplay loop muted playsinline>
+                    <source src="slope.mp4" type="video/mp4">
+                </video>
                 <figcaption>Slope Field Game</figcaption>
+            </figure>
+        </a>
+        <a href="https://xavier371.github.io/Laser-Jump/" target="_blank" rel="noopener noreferrer">
+            <figure>
+                <video autoplay loop muted playsinline>
+                    <source src="lj.mp4" type="video/mp4">
+                </video>
+                <figcaption>Laser Jump</figcaption>
+            </figure>
+        </a>
+        <a href="https://xavier371.github.io/FM-Calculator/" target="_blank" rel="noopener noreferrer">
+            <figure>
+                <video autoplay loop muted playsinline>
+                    <source src="fm calc.mp4" type="video/mp4">
+                </video>
+                <figcaption>Financial Calculator</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/Triangle-Chess/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img src="tc.jpg" alt="Triangle Chess game thumbnail">
+                <video autoplay loop muted playsinline>
+                    <source src="triangle.mp4" type="video/mp4">
+                </video>
                 <figcaption>Triangle Chess</figcaption>
+            </figure>
+        </a>
+        <a href="https://xavier371.github.io/GraphTheMatch/" target="_blank" rel="noopener noreferrer">
+            <figure>
+                <video autoplay loop muted playsinline>
+                    <source src="gtm.mp4" type="video/mp4">
+                </video>
+                <figcaption>Graph the Match</figcaption>
+            </figure>
+        </a>
+        <a href="https://xavier371.github.io/3D-connect4/" target="_blank" rel="noopener noreferrer">
+            <figure>
+                <video autoplay loop muted playsinline>
+                    <source src="3d.mp4" type="video/mp4">
+                </video>
+                <figcaption>3D Connect 4</figcaption>
+            </figure>
+        </a>
+        <a href="https://xavier371.github.io/3D-tic-tac-toe/" target="_blank" rel="noopener noreferrer">
+            <figure>
+                <video autoplay loop muted playsinline>
+                    <source src="3d.mp4" type="video/mp4">
+                </video>
+                <figcaption>3D Tic Tac Toe</figcaption>
             </figure>
         </a>
         <a href="https://xavier371.github.io/3D-snake/" target="_blank" rel="noopener noreferrer">
             <figure>
-                <img src="snk.jpg" alt="3D Snake game thumbnail">
+                <video autoplay loop muted playsinline>
+                    <source src="3d.mp4" type="video/mp4">
+                </video>
                 <figcaption>3D Snake</figcaption>
             </figure>
         </a>
     </section>
 
-    <!-- Desktop list with Slope Field Game under FM Calculator -->
     <section class="games-list" aria-label="Games list">
         <article class="game-item">
             <div class="game-content">
@@ -202,7 +281,7 @@
                     <h2>Find the Basis</h2>
                     <p>
                         Vectors <em>i</em> and <em>j</em> form a unit square, and span 2D space.
-                        Drag and drop <em>i'</em> and <em>j'</em> to scale, rotate, and flip the unit square, and 2D space—
+                        Drag and drop <em>i'</em> and <em>j'</em> to scale, rotate, and flip the unit square- and 2D space-
                         so that the blue point falls on the red. Click solve to see how to get a (non-unique) solution,
                         and help for more intuition.
                     </p>
@@ -210,7 +289,11 @@
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img src="find-the-basis.jpg" alt="Find the Basis game thumbnail">
+                        <a href="https://xavier371.github.io/FindTheBasis/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="ftb.mp4" type="video/mp4">
+                            </video>
+                        </a>
                         <figcaption>Find the Basis</figcaption>
                     </figure>
                 </div>
@@ -220,38 +303,23 @@
         <article class="game-item">
             <div class="game-content">
                 <div class="game-text">
-                    <h2>Graph the Match</h2>
+                    <h2>Catch the Point</h2>
                     <p>
-                        The red points are students, and the blue points are Universities.
-                        The edge weights represent how well each student would fit at each University.
-                        Highlight the set of edges that maximize the score for everyone involved. Press check
-                        to see if your matching is optimal.
+                        You are the blue point trying to catch the red.
+                        Every move, a random edge is removed. Try to capture the red point
+                        before an edge is removed and the points are separated. Switch to defense mode
+                        to try and evade red, and switch to two players to play with a friend.
                     </p>
-                    <a href="https://xavier371.github.io/GraphTheMatch/" class="game-link" target="_blank" rel="noopener noreferrer">Graph the Match</a>
+                    <a href="https://xavier371.github.io/Chase-the-Point/" class="game-link" target="_blank" rel="noopener noreferrer">Catch the Point</a>
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img src="gtm.jpg" alt="Graph the Match game thumbnail">
-                        <figcaption>Graph the Match</figcaption>
-                    </figure>
-                </div>
-            </div>
-        </article>
-
-        <article class="game-item">
-            <div class="game-content">
-                <div class="game-text">
-                    <h2>Financial Calculator</h2>
-                    <p>
-                        An interactive financial calculator for analyzing annuities, loans, bonds, and the time value of money.
-                        Adjust parameters to visualize how cash flows are accumulated and discounted in real time.
-                    </p>
-                    <a href="https://xavier371.github.io/FM-Calculator/" class="game-link" target="_blank" rel="noopener noreferrer">FM Calculator</a>
-                </div>
-                <div class="game-media">
-                    <figure>
-                        <img src="FM.jpg" alt="Financial Calculator app thumbnail">
-                        <figcaption>FM Calculator</figcaption>
+                        <a href="https://xavier371.github.io/Chase-the-Point/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="ctp.mp4" type="video/mp4">
+                            </video>
+                        </a>
+                        <figcaption>Catch the Point</figcaption>
                     </figure>
                 </div>
             </div>
@@ -270,29 +338,12 @@
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img src="slp.jpg" alt="Slope Field Game thumbnail">
+                        <a href="https://xavier371.github.io/Slope-Field-Game/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="slope.mp4" type="video/mp4">
+                            </video>
+                        </a>
                         <figcaption>Slope Field Game</figcaption>
-                    </figure>
-                </div>
-            </div>
-        </article>
-
-        <article class="game-item">
-            <div class="game-content">
-                <div class="game-text">
-                    <h2>Catch the Point</h2>
-                    <p>
-                        You are the blue point trying to catch the red.
-                        Every move, a random edge is removed. Try to corner the red point
-                        before an edge is removed and the points are separated. Switch to defense mode
-                        to try and evade red, and switch to two players to play with a friend.
-                    </p>
-                    <a href="https://xavier371.github.io/Chase-the-Point/" class="game-link" target="_blank" rel="noopener noreferrer">Catch the Point</a>
-                </div>
-                <div class="game-media">
-                    <figure>
-                        <img src="CTP.jpg" alt="Catch the Point game thumbnail">
-                        <figcaption>Catch the Point</figcaption>
                     </figure>
                 </div>
             </div>
@@ -304,15 +355,90 @@
                     <h2>Laser Jump</h2>
                     <p>
                         Test your reflexes by collecting as many gold coins as possible while avoiding an
-                        increasing number of lasers. Press the space bar to jump on computers, or tap while dragging to
-                        jump on mobile devices.
+                        increasing number of lasers by jumping over them and phasing through walls.
                     </p>
                     <a href="https://xavier371.github.io/Laser-Jump/" class="game-link" target="_blank" rel="noopener noreferrer">Laser Jump</a>
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img src="LJ.jpg" alt="Laser Jump game thumbnail">
+                        <a href="https://xavier371.github.io/Laser-Jump/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="lj.mp4" type="video/mp4">
+                            </video>
+                        </a>
                         <figcaption>Laser Jump</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </article>
+
+        <article class="game-item">
+            <div class="game-content">
+                <div class="game-text">
+                    <h2>Financial Calculator</h2>
+                    <p>
+                        An interactive financial calculator for analyzing annuities, loans, bonds, and the time value of money.
+                        Adjust parameters to visualize how cash flows are accumulated and discounted over time.
+                    </p>
+                    <a href="https://xavier371.github.io/FM-Calculator/" class="game-link" target="_blank" rel="noopener noreferrer">FM Calculator</a>
+                </div>
+                <div class="game-media">
+                    <figure>
+                        <a href="https://xavier371.github.io/FM-Calculator/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="fm calc.mp4" type="video/mp4">
+                            </video>
+                        </a>
+                        <figcaption>FM Calculator</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </article>
+
+        <article class="game-item">
+            <div class="game-content">
+                <div class="game-text">
+                    <h2>Triangle Chess</h2>
+                    <p>
+                        The goal is to promote one of your pieces to the opposite end of the board before your opponent.
+                        Every move, a triangle can move one square up, down, left or right. Land on an opposing triangle
+                        to capture it. Try to find a path to victory while blocking your opponent.
+                    </p>
+                    <a href="https://xavier371.github.io/Triangle-Chess/" class="game-link" target="_blank" rel="noopener noreferrer">Triangle Chess</a>
+                </div>
+                <div class="game-media">
+                    <figure>
+                        <a href="https://xavier371.github.io/Triangle-Chess/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="triangle.mp4" type="video/mp4">
+                            </video>
+                        </a>
+                        <figcaption>Triangle Chess</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </article>
+
+        <article class="game-item">
+            <div class="game-content">
+                <div class="game-text">
+                    <h2>Graph the Match</h2>
+                    <p>
+                        The red points are students, and the blue points are Universities.
+                        The edge weights represent how well each student would fit at each University. Each University can
+                        only accept one student. Highlight the set of edges that maximize the score for everyone involved.
+                        Press check to see if your matching is optimal.
+                    </p>
+                    <a href="https://xavier371.github.io/GraphTheMatch/" class="game-link" target="_blank" rel="noopener noreferrer">Graph the Match</a>
+                </div>
+                <div class="game-media">
+                    <figure>
+                        <a href="https://xavier371.github.io/GraphTheMatch/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="gtm.mp4" type="video/mp4">
+                            </video>
+                        </a>
+                        <figcaption>Graph the Match</figcaption>
                     </figure>
                 </div>
             </div>
@@ -334,34 +460,125 @@
                 </div>
                 <div class="game-media">
                     <figure>
-                        <img src="3d.jpg" alt="3D classics games thumbnail">
+                        <a href="https://xavier371.github.io/3D-connect4/" target="_blank" rel="noopener noreferrer">
+                            <video autoplay loop muted playsinline>
+                                <source src="3d.mp4" type="video/mp4">
+                            </video>
+                        </a>
                         <figcaption>3D Classics</figcaption>
-                    </figure>
-                </div>
-            </div>
-        </article>
-
-        <article class="game-item">
-            <div class="game-content">
-                <div class="game-text">
-                    <h2>Triangle Chess</h2>
-                    <p>
-                        The goal is to promote one of your pieces to the opposite end of the board before your opponent.
-                        Every move, a triangle can move one square up, down, left or right. Land on an opposing triangle
-                        to capture it. Try to find a path to victory while blocking your opponent.
-                    </p>
-                    <a href="https://xavier371.github.io/Triangle-Chess/" class="game-link" target="_blank" rel="noopener noreferrer">Triangle Chess</a>
-                </div>
-                <div class="game-media">
-                    <figure>
-                        <img src="tc.jpg" alt="Triangle Chess game thumbnail">
-                        <figcaption>Triangle Chess</figcaption>
                     </figure>
                 </div>
             </div>
         </article>
     </section>
 
+    <script>
+        // ── Analytics ────────────────────────────────────────────────────────
+        const SB_URL = 'https://searruwutinbfqhqxdjo.supabase.co';
+        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlYXJydXd1dGluYmZxaHF4ZGpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NTYzOTIsImV4cCI6MjA5NzEzMjM5Mn0.61vmX4DtKSKVRtCfGJUNmHcbgZIFJUSX3sgxEhjSgeY';
+
+        const GAME_NAMES = {
+            'FindTheBasis':    'Find the Basis',
+            'GraphTheMatch':   'Graph the Match',
+            'FM-Calculator':   'Financial Calculator',
+            'Slope-Field-Game':'Slope Field',
+            'Chase-the-Point': 'Catch the Point',
+            'Laser-Jump':      'Laser Jump',
+            '3D-tic-tac-toe':  '3D Tic Tac Toe',
+            '3D-connect4':     '3D Connect 4',
+            '3D-snake':        '3D Snake',
+            'Triangle-Chess':  'Triangle Chess'
+        };
+
+        function getSessionId() {
+            let id = sessionStorage.getItem('xmg_sid');
+            if (!id) { id = crypto.randomUUID(); sessionStorage.setItem('xmg_sid', id); }
+            return id;
+        }
+
+        function getDevice() {
+            return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+        }
+
+        function getBrowser() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Firefox')) return 'Firefox';
+            if (ua.includes('Edg'))     return 'Edge';
+            if (ua.includes('Chrome'))  return 'Chrome';
+            if (ua.includes('Safari'))  return 'Safari';
+            return 'Other';
+        }
+
+        function sbInsert(table, row) {
+            fetch(`${SB_URL}/rest/v1/${table}`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SB_KEY,
+                    'Authorization': `Bearer ${SB_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(row)
+            });
+        }
+
+        async function trackVisit() {
+            if (sessionStorage.getItem('xmg_visited')) return;
+            sessionStorage.setItem('xmg_visited', '1');
+            const sid = getSessionId();
+            let country = null, city = null;
+            try {
+                const geo = await fetch('https://ipapi.co/json/');
+                const d = await geo.json();
+                country = d.country_name || null;
+                city    = d.city        || null;
+            } catch (_) {}
+            sbInsert('visits', {
+                session_id: sid,
+                device:     getDevice(),
+                browser:    getBrowser(),
+                country,
+                city,
+                referrer:   document.referrer || 'direct'
+            });
+        }
+
+        document.addEventListener('click', e => {
+            const link = e.target.closest('a[href*="xavier371.github.io"]');
+            if (!link) return;
+            const m = link.href.match(/xavier371\.github\.io\/([^/]+)/);
+            if (!m) return;
+            const name = GAME_NAMES[m[1]] || m[1];
+            sbInsert('game_clicks', { session_id: getSessionId(), game: name });
+        });
+
+        trackVisit();
+        // ─────────────────────────────────────────────────────────────────────
+
+        // ── Mobile swipe to expand description / video ────────────────────────
+        (function () {
+            var startX, startY;
+
+            document.querySelectorAll('.game-content').forEach(function (card) {
+                card.addEventListener('touchstart', function (e) {
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                }, { passive: true });
+
+                card.addEventListener('touchend', function (e) {
+                    var dx = e.changedTouches[0].clientX - startX;
+                    var dy = e.changedTouches[0].clientY - startY;
+                    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+                    if (dx > 0) {
+                        card.classList.add('expanded');
+                    } else {
+                        card.classList.remove('expanded');
+                    }
+                }, { passive: true });
+            });
+        })();
+        // ─────────────────────────────────────────────────────────────────────
+    </script>
+
 </body>
 </html>
-
