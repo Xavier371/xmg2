@@ -519,26 +519,24 @@
         trackVisit();
         // ─────────────────────────────────────────────────────────────────────
 
-        // ── Force autoplay on all videos (mobile browsers require explicit play) ─
+        // ── Force autoplay on all videos ──────────────────────────────────────
         (function () {
             var videos = document.querySelectorAll('video');
 
+            // Try playing all videos immediately
             videos.forEach(function (v) {
-                // Move src from <source> child directly onto <video> — far more
-                // reliable for mobile autoplay than the <source> child approach
-                var src = v.querySelector('source');
-                if (src) {
-                    v.src = src.getAttribute('src');
-                    src.remove();
-                }
-                v.setAttribute('playsinline', '');
-                v.setAttribute('webkit-playsinline', '');
-                v.setAttribute('preload', 'auto');
                 v.muted = true;
-                v.load();
                 v.play().catch(function () {});
             });
 
+            // iOS unlock: on first touch anywhere, play all videos
+            document.addEventListener('touchstart', function () {
+                videos.forEach(function (v) {
+                    if (v.paused) v.play().catch(function () {});
+                });
+            }, { once: true, passive: true });
+
+            // Pause when off-screen, resume when back in view
             if ('IntersectionObserver' in window) {
                 var obs = new IntersectionObserver(function (entries) {
                     entries.forEach(function (entry) {
