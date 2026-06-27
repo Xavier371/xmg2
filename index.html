@@ -558,10 +558,20 @@
         // ── Force autoplay on all videos (mobile browsers require explicit play) ─
         (function () {
             var videos = document.querySelectorAll('video');
+
             videos.forEach(function (v) {
+                // Move src from <source> child directly onto <video> — far more
+                // reliable for mobile autoplay than the <source> child approach
+                var src = v.querySelector('source');
+                if (src) {
+                    v.src = src.getAttribute('src');
+                    src.remove();
+                }
                 v.setAttribute('playsinline', '');
                 v.setAttribute('webkit-playsinline', '');
+                v.setAttribute('preload', 'auto');
                 v.muted = true;
+                v.load();
                 v.play().catch(function () {});
             });
 
@@ -574,7 +584,7 @@
                             entry.target.pause();
                         }
                     });
-                }, { threshold: 0.25 });
+                }, { threshold: 0.1 });
                 videos.forEach(function (v) { obs.observe(v); });
             }
         })();
