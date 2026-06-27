@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -535,14 +534,24 @@
                 v.play().catch(function () {});
             }
 
-            // Click on a game video link: only intercept if that specific video is paused
+            // Click on a game video link: check paused state BEFORE iOS plays it
             document.querySelectorAll('.game-media a').forEach(function (link) {
-                link.addEventListener('click', function (e) {
+                var wasPaused = false;
+
+                function recordPaused() {
                     var v = link.querySelector('video');
-                    if (v && v.paused) {
+                    wasPaused = v ? v.paused : false;
+                }
+
+                link.addEventListener('pointerdown', recordPaused, { passive: true });
+                link.addEventListener('touchstart',  recordPaused, { passive: true });
+
+                link.addEventListener('click', function (e) {
+                    if (wasPaused) {
                         e.preventDefault();
                         e.stopPropagation();
                         videos.forEach(function (vid) { loadAndPlay(vid); });
+                        wasPaused = false;
                     }
                 });
             });
